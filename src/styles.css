@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+body{
+  background-color: #F4F2F3;
+  margin-top: -20px;
+}
+
+.btn.btn-primary {
+  background-color: #C0A9BD;
+  color: white;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+}

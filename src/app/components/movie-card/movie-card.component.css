@@ -1,0 +1,22 @@
+.card {
+  margin-bottom: 15px;
+  min-height: 425px;
+  max-height: auto;
+}
+
+.card-img-top {
+  height: 400px;
+  object-fit: fill;
+}
+
+.btn.btn-primary {
+  position: absolute;
+  margin-bottom: 20px;
+  bottom: 0;
+}
+
+.readMorelink {
+  color: #c0a9bd;
+  cursor: pointer;
+  display: inline-block;
+}

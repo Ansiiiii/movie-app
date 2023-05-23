@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="form-group">
+    <label for="query">
+    </label>
+    <div class="search">
+      <input
+        id="query"
+        name="query"
+        type="text"
+        class="searchTerm glyphicon glyphicon-search"
+        [(ngModel)]="query"
+        (keyup.enter)="showSearchResults()"
+        placeholder="Search for a Movie"
+      />
+      <button type="button" (click)="showSearchResults()" class="searchButton">Search</button>
+    </div>
+  </div>
+  <app-error-messages [error]="error"></app-error-messages>
+  <app-featured-movies></app-featured-movies>
+</div>

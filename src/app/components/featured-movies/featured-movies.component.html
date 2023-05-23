@@ -1,0 +1,14 @@
+<ng-container *ngIf="featuredMovies">
+  <div class="container">
+    <h2 class="featuredMovies">Featured Movies</h2>
+    <div class="row">
+      <app-movie
+        *ngFor="let movie of featuredMovies"
+        [featuredMovie]="movie"
+        class="col-lg-4 col-md-6 col-sm-6 col-xs-12"
+      >
+      </app-movie>
+    </div>
+  </div>
+</ng-container>
+<app-error-messages [error]="errMsg"></app-error-messages>

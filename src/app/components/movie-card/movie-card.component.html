@@ -1,0 +1,57 @@
+<ng-container *ngIf="movie">
+  <div class="card" *ngIf="movieDetils$ | async as movieDetail">
+    <img
+      [src]="movie.Poster | defaultImage"
+      class="card-img-top"
+      [alt]="movie.Title"
+    />
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ movie.Title }}
+      </h5>
+      <div><b>TYPE</b>: {{ movie.Type | uppercase }}</div>
+      <div><b>Year</b>: {{ movie.Year | uppercase }}</div>
+      <div><b>Actors</b>: {{ movieDetail.Actors | uppercase }}</div>
+      <div><b>Rated</b>: {{ movieDetail.Rated | uppercase }}</div>
+      <div><b>Genre</b>: {{ movieDetail.Genre | uppercase }}</div>
+      <div><b>Director</b>: {{ movieDetail.Director | uppercase }}</div>
+      <div><b>Awards</b>: {{ movieDetail.Awards | uppercase }}</div>
+      <p class="card-text" *ngIf="!showFullMoviePlot; else showReadLess">
+       <b>Plot</b>:
+       <span>{{ movieDetail.Plot | slice:0:70}}...</span>
+       <a class="readMorelink"  (click)="readMore()">Read More</a>
+      </p>
+      <ng-template #showReadLess>
+        <span>{{ movieDetail.Plot}}</span>
+        <a  class="readMorelink" (click)="readMore()">Read Less</a>
+       </ng-template>
+    </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="featuredMovie">
+  <div class="card">
+    <img
+      [src]="featuredMovie.Poster | defaultImage"
+      class="card-img-top"
+      [alt]="featuredMovie.Title"
+    />
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ featuredMovie.Title }}
+      </h5>
+      <div><b>Year</b>: {{ featuredMovie.Year | uppercase }}</div>
+      <div><b>Awards</b>: {{ featuredMovie.Awards | uppercase }}</div>
+      <p class="card-text" *ngIf="!showFullMoviePlot; else showReadLess">
+        <b>Plot</b>:
+        <span>{{ featuredMovie.Plot | slice:0:70}}...</span>
+        <a class="readMorelink"  (click)="readMore()">Read More</a>
+       </p>
+       <ng-template #showReadLess>
+         <span>{{ featuredMovie.Plot}}</span>
+         <a  class="readMorelink" (click)="readMore()">Read Less</a>
+        </ng-template>
+    </div>
+  </div>
+</ng-container>
