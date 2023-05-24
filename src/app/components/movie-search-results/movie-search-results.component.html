@@ -2,7 +2,7 @@
   <h2>Search Results</h2>
   <div class="row">
     <app-movie
-      *ngFor="let movie of movies"
+      *ngFor="let movie of movieSearchResults$ | async"
       [movie]="movie"
       class="col-lg-4 col-md-6 col-sm-6 col-xs-12"
     >
@@ -10,4 +10,6 @@
   </div>
 </div>
 <app-error-messages [error]="errMsg"></app-error-messages>
+<app-error-messages [error]="movieService.errMsg"></app-error-messages>
+
 
