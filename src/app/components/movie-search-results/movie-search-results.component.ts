@@ -15,6 +15,7 @@ export class MovieSearchResultsComponent implements OnInit, OnDestroy {
   movies: Movie[] | undefined;
   errMsg: string = '';
   movieSubscription = new Subscription();
+  queryParamSubscription = new Subscription();;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -22,7 +23,7 @@ export class MovieSearchResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.queryParamSubscription = this.route.queryParams.subscribe((params) => {
       this.query = params['query'];
       this.getSearchResults();
     });
@@ -47,5 +48,6 @@ export class MovieSearchResultsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.movieSubscription.unsubscribe();
+    this.queryParamSubscription.unsubscribe();
   }
 }
