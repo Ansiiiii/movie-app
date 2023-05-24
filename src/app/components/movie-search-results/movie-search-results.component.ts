@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { catchError, Observable, Subscription, throwError } from "rxjs";
+import { catchError, Observable, switchMap, throwError } from "rxjs";
 import { Movie } from "src/app/model/movie";
 import { MovieService } from "src/app/service/movie.service";
 
@@ -9,10 +9,9 @@ import { MovieService } from "src/app/service/movie.service";
   templateUrl: "./movie-search-results.component.html",
   styleUrls: ["./movie-search-results.component.css"],
 })
-export class MovieSearchResultsComponent implements OnInit, OnDestroy {
+export class MovieSearchResultsComponent implements OnInit {
   query: string = "";
   errMsg: string = "";
-  queryParamSubscription = new Subscription();
   movieSearchResults$: Observable<Movie[]> | undefined;
 
   constructor(
@@ -22,23 +21,18 @@ export class MovieSearchResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.movieService.errMsg = "";
-    this.queryParamSubscription = this.route.queryParams.subscribe((params) => {
-      this.query = params["query"];
-      this.getSearchResults();
-    });
-  }
-
-  getSearchResults() {
-    this.movieSearchResults$ = this.movieService.searchMovie(this.query).pipe(
-      catchError((err) => {
-        console.log("Handling error locally and rethrowing it...", err);
-        this.errMsg = err.error.Error;
-        return throwError(() => err);
-      })
+    this.movieSearchResults$ = this.route.queryParams.pipe(
+      switchMap((params) =>
+          this.movieService
+          .searchMovie(params["query"])
+          .pipe(
+            catchError((err) => {
+              console.log("Handling error locally and rethrowing it...", err);
+              this.errMsg = err.error.Error;
+              return throwError(() => err);
+            })
+          )
+      )
     );
-  }
-
-  ngOnDestroy(): void {
-    this.queryParamSubscription.unsubscribe();
   }
 }
